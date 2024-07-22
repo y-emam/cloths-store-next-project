@@ -3,10 +3,6 @@
 import Image from "next/image";
 import React from "react";
 
-// export const metadata = {
-//   title: ""
-// }
-
 const Product = ({ product }) => {
   return (
     <section className="text-white">
@@ -22,7 +18,6 @@ const Product = ({ product }) => {
       <button onClick={() => {}}>Buy</button>
     </section>
   );
-  // todo: check if you will change buy to add to cart or no
 };
 
 export default Product;
