@@ -9,10 +9,25 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // load products from the backend
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const updateProducts = async () => {
+      try {
+        // get products from backend
+        fetch("/api/products")
+          .then((res) => res.json())
+          .then((products) => {
+            // update the products variable
+            console.log(products);
+            setProducts(products);
+            // change the loading to false
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    updateProducts();
   }, []);
   return (
     <section className="w-full text-white">
