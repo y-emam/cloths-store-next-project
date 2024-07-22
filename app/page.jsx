@@ -13,7 +13,7 @@ const font = Covered_By_Your_Grace({
 export default function Home() {
   return (
     <section className="w-full flex-col text-white">
-      <header className="w-full max-w-5xl mt-16 ml-5">
+      <header className="mt-16 self-center">
         <h1 className="text-center text-5xl font-bold">
           <span className={`${font.className} text-8xl`}>YASUO</span> Store
         </h1>
