@@ -45,10 +45,10 @@ const Product = ({ params }) => {
         <>
           <h1>{product.name}</h1>
           <Image
-            width={product.width}
-            height={product.height}
-            src={product.imageUri}
-            alt={product.alt}
+            width={400}
+            height={400}
+            src={`/assets/products/${product.image}`}
+            alt={product.image.split(".")[0]}
           />
           <p>{product.description}</p>
           <p>${product.price}</p>

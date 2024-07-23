@@ -4,10 +4,8 @@ import { useRouter } from "next/router";
 import React from "react";
 
 const ProductCard = ({ product }) => {
-  const linkHref = `/products/${product._id}`;
-
   return (
-    <Link href={linkHref} className="flex flex-col  max-w-80">
+    <Link href={`/products/${product._id}`} className="flex flex-col  max-w-80">
       <Image
         width={320}
         height={320}
