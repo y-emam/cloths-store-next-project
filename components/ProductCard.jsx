@@ -1,13 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
-const ProductCard = ({ params }) => {
+const ProductCard = ({ product }) => {
+  const linkHref = `/products/${product._id}`;
+
   return (
-    <Link href="/products/1" className="flex flex-col  max-w-80">
+    <Link href={linkHref} className="flex flex-col  max-w-80">
       <Image
         width={320}
         height={320}
+        priority={false}
         src="/assets/products/hoody.jpg"
         alt="Product Image"
       />

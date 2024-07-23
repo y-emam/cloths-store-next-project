@@ -1,19 +1,25 @@
 import Product from "@/models/Product";
 import { connectToDB } from "@/utils/db";
+import { NextResponse } from "next/server";
 
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    res.status(200).json({ message: "This is a POST request" });
-  } else if (req.method === "GET") {
+export async function GET() {
+  try {
     await connectToDB();
 
     const products = await Product.find();
 
-    console.log(products);
+    return NextResponse.json({ data: products });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ message: `Error: ${err}` }, { status: 500 });
+  }
+}
 
-    res.status(200).json({ data: products });
-  } else {
-    res.setHeader("Allow", ["GET", "POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+export async function POST(req, res) {
+  try {
+    return NextResponse.json(data);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ message: `Error: ${err}` }, { status: 500 });
   }
 }

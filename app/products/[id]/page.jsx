@@ -1,21 +1,60 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
+import LoadingSpinner from "@/components/LoadingSpinner";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Product = ({ product }) => {
+const Product = ({ params }) => {
+  const [product, setProduct] = useState(undefined);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const updateProduct = () => {
+      try {
+        fetch(`/api/products/${params.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Failed to fetch product");
+            }
+            return res.json();
+          })
+          .then((res) => {
+            setProduct(res.data);
+
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateProduct();
+  }, []);
+
   return (
     <section className="text-white">
-      <h1>{product.name}</h1>
-      <Image
-        width={product.width}
-        height={product.height}
-        src={product.imageUri}
-        alt={product.alt}
-      />
-      <p>{product.description}</p>
-      <p>${product.price}</p>
-      <button onClick={() => {}}>Buy</button>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <h1>{product.name}</h1>
+          <Image
+            width={product.width}
+            height={product.height}
+            src={product.imageUri}
+            alt={product.alt}
+          />
+          <p>{product.description}</p>
+          <p>${product.price}</p>
+          <button onClick={() => {}}>Buy</button>
+        </>
+      )}
     </section>
   );
 };

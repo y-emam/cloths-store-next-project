@@ -12,13 +12,21 @@ const Products = () => {
     const updateProducts = async () => {
       try {
         // get products from backend
-        fetch("/api/products")
-          .then((res) => res.json())
-          .then((products) => {
-            // update the products variable
-            console.log(products);
-            setProducts(products);
-            // change the loading to false
+        fetch("/api/products", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Failed to fetch products");
+            }
+            return res.json();
+          })
+          .then((res) => {
+            setProducts(res.data);
+
             setLoading(false);
           })
           .catch((err) => console.log(err));
@@ -29,6 +37,7 @@ const Products = () => {
 
     updateProducts();
   }, []);
+
   return (
     <section className="w-full text-white">
       <h1 className="text-5xl text-center font-bold">Products</h1>
@@ -36,9 +45,9 @@ const Products = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <ul className="w-full mt-10 p-0 gap-5 grid lg:grid-cols-4 sm:grid-cols-2 justify-items-center">
+        <ul className="w-full text-white mt-10 p-0 gap-5 grid lg:grid-cols-4 sm:grid-cols-2 justify-items-center">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))}
         </ul>
       )}
