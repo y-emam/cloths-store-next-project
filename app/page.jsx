@@ -1,6 +1,5 @@
 import { Covered_By_Your_Grace } from "next/font/google";
 import Image from "next/image";
-import someImage from "@/public/assets/products/black_hoody.jpg";
 
 export const metadata = {
   title: "Yasuo Store",
@@ -14,28 +13,31 @@ const font = Covered_By_Your_Grace({
 
 export default function Home() {
   return (
-    <section className="w-full flex-col text-white">
-      <header className="mt-16 self-center">
-        <h1 className="text-center text-5xl font-bold">
-          <span className={`${font.className} text-8xl`}>YASUO</span> Store
-        </h1>
-        <p className="text-center font-medium mt-2 text-lg">
-          Style Delivered to Your Doorstep
-        </p>
+    <section className="w-full flex-col text-white text-center">
+      <header className="mb-96 self-center">
+        <div className="translate-y-1/2">
+          <h1 className="text-center text-5xl font-bold">
+            <span className={`${font.className} text-8xl`}>YASUO</span> Store
+          </h1>
+          <p className="text-center font-medium mt-2 text-lg">
+            Style Delivered to Your Doorstep
+          </p>
+          <br />
+          <a href="/products" className="home_white_btn">
+            Products
+          </a>
+        </div>
       </header>
-      <section class="w-full h-screenflex items-center justify-center">
+      <section class="w-full h-screenflex items-center justify-center mb-52">
         <div class="text-center text-white px-4 py-8">
           <h2 class="text-4xl font-bold mb-4">Summer Deals</h2>
           <p class="text-lg mb-8">Enjoy Hot Discounts on Summer Styles!</p>
-          <a
-            href="#"
-            class="bg-white text-black py-3 px-6 rounded-lg text-lg font-semibold hover:bg-gray-200"
-          >
+          <a href="/products" className="home_white_btn">
             Products
           </a>
         </div>
       </section>
-      <section class="w-full bg-black text-white py-12 my-10">
+      <section class="w-full bg-black text-white py-12 mb-10">
         <div class="container mx-auto px-4">
           <h2 class="text-4xl font-bold text-center mb-8">
             What Our Customers Say
@@ -56,7 +58,7 @@ export default function Home() {
                 />
                 <div>
                   <p class="font-semibold">Jane Doe</p>
-                  <p class="text-yellow-400">★★★★☆</p>
+                  <p class="text-yellow-400">★★★★★</p>
                 </div>
               </div>
             </div>
