@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 const Product = ({ params }) => {
   const [product, setProduct] = useState(undefined);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const updateProduct = () => {
@@ -38,22 +39,52 @@ const Product = ({ params }) => {
   }, []);
 
   return (
-    <section className="text-white">
+    <section className="w-full text-white">
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <>
-          <h1>{product.name}</h1>
+        <div className="w-full flex flex-row justify-around flex-wrap">
           <Image
-            width={400}
-            height={400}
+            width={320}
+            height={320}
             src={`/assets/products/${product.image}`}
             alt={product.image.split(".")[0]}
+            className="mb-10"
           />
-          <p>{product.description}</p>
-          <p>${product.price}</p>
-          <button onClick={() => {}}>Buy</button>
-        </>
+          <div className="min-h-80 h-72 w-full max-w-80 border-white border-2 p-3">
+            <h1 className="text-2xl mb-4">{product.name}</h1>
+            <p className="h-20">{product.desc}</p>
+            <div className="flex flex-row justify-between items-center mb-5">
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="quantity"
+              >
+                Quantity
+              </label>
+              <input
+                className="w-1/2 h-5 border-white bg-black border-2 p-1 text-center outline-none"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-row justify-between items-center">
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="quantity"
+              >
+                Price
+              </label>
+              <p>${product.price}</p>
+            </div>
+            <button
+              className="w-full bg-white text-black p-2 mt-5 font-bold"
+              onClick={() => {}}
+            >
+              Buy
+            </button>
+          </div>
+        </div>
       )}
     </section>
   );

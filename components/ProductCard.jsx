@@ -10,13 +10,13 @@ const ProductCard = ({ product }) => {
         width={320}
         height={320}
         priority={false}
-        src="/assets/products/hoody.jpg"
-        alt="Product Image"
+        src={`/assets/products/${product.image}`}
+        alt={product.image.split(".")[0]}
       />
       <p className="w-full text-left text-xs mt-1">
-        <span>BLACK Hoody</span>
+        <span>{product.name}</span>
         <br />
-        <span>200$</span>
+        <span>${product.price}</span>
       </p>
     </Link>
   );
