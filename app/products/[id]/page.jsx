@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 

@@ -1,5 +1,5 @@
-import Product from "../../../../models/Product";
-import { connectToDB } from "../../../../utils/db";
+import Product from "@/models/Product";
+import { connectToDB } from "@/utils/db";
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 

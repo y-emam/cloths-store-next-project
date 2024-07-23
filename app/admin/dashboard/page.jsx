@@ -1,6 +1,6 @@
 "use client";
 
-import useWindowSize from "../../../utils/useWindowSize";
+import useWindowSize from "@/utils/useWindowSize";
 import React from "react";
 
 const Dashboard = () => {

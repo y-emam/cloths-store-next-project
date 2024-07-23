@@ -1,7 +1,7 @@
 "use client";
 
-import LoadingSpinner from "../../components/LoadingSpinner";
-import ProductCard from "../../components/ProductCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import ProductCard from "@/components/ProductCard";
 import React, { useEffect, useState } from "react";
 
 const Products = () => {
