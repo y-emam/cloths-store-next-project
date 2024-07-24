@@ -1,8 +1,11 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const SigninForm = ({ page }) => {
+  const router = useRouter();
+
   return (
     <div className="bg-gray-900 text-white p-8 shadow-lg w-full max-w-md my-20">
       <h2 className="text-2xl font-bold mb-6 text-center">
@@ -66,13 +69,23 @@ const SigninForm = ({ page }) => {
                 body: JSON.stringify({ email, username, password }),
               })
                 .then((res) => res.json())
-                .then((data) => {
-                  console.log(data);
+                .then(async (data) => {
+                  if (data.error) {
+                    console.log(data.error);
+                  } else {
+                    console.log(email, password);
+                    signIn("credentials", { email, password }).then((res) =>
+                      router.push("/products")
+                    );
+                  }
                 })
                 .catch((err) => {
                   console.log(err);
                 });
             } else {
+              const email = document.getElementById("email").value;
+              const password = document.getElementById("password").value;
+
               signIn("credentials", { email, password });
             }
           }}

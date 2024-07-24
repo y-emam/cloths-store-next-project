@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import FacebookProvider from "next-auth/providers/facebook";
 import { connectToDB } from "@/utils/db";
 import User from "@/models/user";
+import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   providers: [
@@ -17,14 +17,16 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: "credentials",
-      credentials: {},
-
-      async authorize(credentials) {
-        const { email, password } = credentials;
-
+      name: "Credentials",
+      credentials: {
+        email: { label: "email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
         try {
+          const { email, password } = credentials;
           await connectToDB();
+
           const user = await User.findOne({ email });
 
           if (!user) {
@@ -38,14 +40,29 @@ const handler = NextAuth({
           }
 
           return user;
-        } catch (error) {
-          console.log("Error: ", error);
+        } catch (err) {
+          console.log(err);
         }
       },
     }),
   ],
   session: {
     strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
+  pages: {
+    signIn: "/signin",
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      if (url.includes("/signin")) {
+        return "/products";
+      } else {
+        return "/";
+      }
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
