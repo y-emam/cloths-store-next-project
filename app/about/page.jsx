@@ -8,9 +8,9 @@ const About = () => {
         <section className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">About Us</h1>
           <p className="text-lg text-white">
-            Welcome to Your Company, where we bring you the best in fashion and
-            style. Our mission is to provide high-quality clothing that empowers
-            you to express your individuality.
+            Welcome to Yasuo, where we bring you the best in fashion and style.
+            Our mission is to provide high-quality clothing that empowers you to
+            express your individuality.
           </p>
         </section>
 
@@ -25,7 +25,7 @@ const About = () => {
           <div className="w-full md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold mb-4">Our Story</h2>
             <p className="text-white">
-              Founded in 2024, Your Company started with a simple vision: to
+              Founded in 2024, Yasuo started with a simple vision: to
               revolutionize the fashion industry with a focus on quality and
               customer satisfaction. Our team is dedicated to curating
               collections that reflect the latest trends while ensuring
