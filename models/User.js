@@ -1,6 +1,11 @@
 import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
+  email: {
+    type: String,
+    unique: [true, "Email must be unique!"],
+    required: [true, "Email is required!"],
+  },
   username: {
     type: String,
     unique: [truq, "Username must be unique!"],
@@ -8,11 +13,6 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-  },
-  email: {
-    type: String,
-    unique: [true, "Email must be unique!"],
-    required: [true, "Email is required!"],
   },
 });
 
