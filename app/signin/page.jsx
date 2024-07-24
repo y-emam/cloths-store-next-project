@@ -1,16 +1,17 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import React from "react";
 
-const Login = () => {
-  // return <div className="text-white">Login</div>;
+const SignIn = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="bg-gray-900 text-white p-8 shadow-lg w-full max-w-md my-20">
       <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
       <form className="space-y-4">
         <div>
-          <label for="email" className="block text-sm">
+          <label htmlFor="email" className="block text-sm">
             Email
           </label>
           <input
@@ -22,7 +23,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <label for="password" className="block text-sm">
+          <label htmlFor="password" className="block text-sm">
             Password
           </label>
           <input
@@ -65,4 +66,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;
