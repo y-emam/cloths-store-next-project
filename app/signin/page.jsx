@@ -51,15 +51,9 @@ const SignIn = () => {
         </button>
         <button
           className="w-full py-2 bg-gray-900 text-white font-semibold hover:bg-gray-800 flex items-center justify-center"
-          onClick={() => signIn("Github")}
+          onClick={() => signIn("github")}
         >
           <i className="fab fa-github mr-2"></i> Sign in with GitHub
-        </button>
-        <button
-          className="w-full py-2 bg-blue-600 text-white font-semibold hover:bg-blue-700 flex items-center justify-center"
-          onClick={() => signIn("facebook")}
-        >
-          <i className="fab fa-facebook mr-2"></i> Sign in with Facebook
         </button>
       </div>
     </div>
