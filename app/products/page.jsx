@@ -11,7 +11,6 @@ const Products = () => {
   useEffect(() => {
     const updateProducts = async () => {
       try {
-        // get products from backend
         fetch("/api/products", {
           method: "GET",
           headers: {

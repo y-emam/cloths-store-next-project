@@ -50,17 +50,30 @@ const SigninForm = ({ page }) => {
         <button
           type="submit"
           className="w-full py-2 mt-4 bg-black text-white font-semibold border-white border-2 hover:bg-gray-800 hover:border-gray-100"
-          onClick={async () => {
+          onClick={async (e) => {
+            e.preventDefault();
+
             if (page === "signUp") {
               const email = document.getElementById("email").value;
               const password = document.getElementById("password").value;
               const username = document.getElementById("username").value;
-              const res = await mongoSignUp(email, username, password);
-              if (res) {
-                return signIn("credentials", { email, password });
-              }
+
+              fetch("/api/signup", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, username, password }),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             } else {
-              return signIn("credentials", { email, password });
+              signIn("credentials", { email, password });
             }
           }}
         >
