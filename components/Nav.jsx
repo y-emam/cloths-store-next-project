@@ -1,11 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { signIn } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   // todo: make this function
+  //   const checkAuth = async () => {
+  //     const session = await getSession();
+  //     if (session) {
+  //       setIsAuthenticated(true);
+  //     } else {
+  //       setIsAuthenticated(false);
+  //     }
+  //   };
+  //   checkAuth();
+  // }, []);
+
   return (
     <nav className="navbar">
       <Link href="/">
@@ -21,9 +38,15 @@ const Nav = () => {
         <Link className="navbar_link" href="/about">
           About
         </Link>
-        <button className="white_btn" onClick={() => signIn()}>
-          Sign In
-        </button>
+        {session ? (
+          <button className="white_btn" onClick={() => signOut()}>
+            Sign Out
+          </button>
+        ) : (
+          <button className="white_btn" onClick={() => router.push("/signin")}>
+            Sign In
+          </button>
+        )}
       </ul>
     </nav>
   );

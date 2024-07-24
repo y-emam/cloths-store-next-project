@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SessionWrapper from "@/components/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,25 +13,27 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="icon" href="/assets/icons/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        />
-      </head>
-      <body className={inter.className}>
-        <div className="main">
-          <div className="gradient" />
-        </div>
+    <SessionWrapper>
+      <html lang="en">
+        <head>
+          <link rel="icon" href="/assets/icons/favicon.ico" />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          />
+        </head>
+        <body className={inter.className}>
+          <div className="main">
+            <div className="gradient" />
+          </div>
 
-        <main className="app">
-          <Nav />
-          {children}
-          <Footer />
-        </main>
-      </body>
-    </html>
+          <main className="app">
+            <Nav />
+            {children}
+            <Footer />
+          </main>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
