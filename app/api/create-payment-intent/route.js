@@ -27,17 +27,6 @@ export async function POST(req, res) {
       });
 
       return NextResponse.json({ clientSecret: paymentIntent.client_secret });
-
-      // await Order.insertOne({
-      //   user_id: user.email,
-      //   products: [
-      //     {
-      //       productId,
-      //       quantity,
-      //     },
-      //   ],
-      //   total_price: amount,
-      // });
     } else {
       return NextResponse.json({ message: "Error failed to" });
     }
