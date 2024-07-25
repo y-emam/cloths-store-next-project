@@ -7,7 +7,6 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
-import convertToSubcurrency from "@/lib/convertToSubCurrency";
 import LoadingSpinner from "./LoadingSpinner";
 
 const CheckoutPage = ({ amount, productId, quantity, userEmail }) => {
