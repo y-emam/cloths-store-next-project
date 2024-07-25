@@ -1,13 +1,12 @@
-import Order from "@/model/order";
 import Product from "@/model/product";
 import User from "@/model/user";
 import { connectToDB } from "@/utils/db";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import convertToSubCurrency from "@/lib/convertToSubCurrency";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(req, res) {
+export async function POST(req) {
   try {
     let { amount, productId, quantity, userEmail } = await req.json();
 
