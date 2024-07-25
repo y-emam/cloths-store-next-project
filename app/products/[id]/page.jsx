@@ -85,7 +85,11 @@ const Product = ({ params }) => {
               className="w-full bg-white text-black p-2 mt-5 font-bold"
               onClick={() => {
                 if (session) {
-                  router.push("/payment");
+                  router.push(
+                    `/payment?productId=${
+                      product._id
+                    }&quantity=${quantity}&amount=${product.price * quantity}`
+                  );
                 } else {
                   router.push("/signin");
                 }
