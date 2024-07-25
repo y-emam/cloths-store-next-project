@@ -11,6 +11,7 @@ const Product = ({ params }) => {
   const [product, setProduct] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -31,6 +32,7 @@ const Product = ({ params }) => {
           })
           .then((res) => {
             setProduct(res.data);
+            setTotalPrice(res.data.price);
 
             setLoading(false);
           })
@@ -55,7 +57,7 @@ const Product = ({ params }) => {
             alt={product.image.split(".")[0]}
             className="mb-10"
           />
-          <div className="min-h-80 h-72 w-full max-w-80 border-white border-2 p-3">
+          <div className="min-h-96 h-72 w-full max-w-80 border-white border-2 p-3">
             <h1 className="text-2xl mb-4">{product.name}</h1>
             <p className="h-20">{product.desc}</p>
             <div className="flex flex-row justify-between items-center mb-5">
@@ -69,7 +71,10 @@ const Product = ({ params }) => {
                 className="w-1/2 h-5 border-white bg-black border-2 p-1 text-center outline-none"
                 type="number"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => {
+                  setQuantity(e.target.value);
+                  setTotalPrice(product.price * e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-row justify-between items-center">
@@ -81,8 +86,18 @@ const Product = ({ params }) => {
               </label>
               <p>${product.price}</p>
             </div>
+            <hr className="border-t-2 border-white my-4" />
+            <div className="flex flex-row justify-between items-center">
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="quantity"
+              >
+                Total Price
+              </label>
+              <p>${totalPrice}</p>
+            </div>
             <button
-              className="w-full bg-white text-black p-2 mt-5 font-bold"
+              className="w-full bg-white text-black p-2 mt-8 font-bold"
               onClick={() => {
                 if (session) {
                   router.push(
