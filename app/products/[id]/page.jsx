@@ -2,13 +2,17 @@
 "use client";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Product = ({ params }) => {
   const [product, setProduct] = useState(undefined);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const updateProduct = () => {
@@ -79,7 +83,13 @@ const Product = ({ params }) => {
             </div>
             <button
               className="w-full bg-white text-black p-2 mt-5 font-bold"
-              onClick={() => {}}
+              onClick={() => {
+                if (session) {
+                  router.push("/payment");
+                } else {
+                  router.push("/signin");
+                }
+              }}
             >
               Buy
             </button>
