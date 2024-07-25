@@ -110,7 +110,7 @@ const SigninForm = ({ page }) => {
       </div>
       <div className="mt-6 flex flex-col space-y-4">
         <button
-          className="w-full py-2 bg-red-600 text-white font-semibold hover:bg-red-700 flex items-center justify-center"
+          className="w-full py-2 bg-white text-black font-semibold hover:bg-gray-200 flex items-center justify-center"
           onClick={() => signIn("google")}
         >
           <i className="fab fa-google mr-2"></i>

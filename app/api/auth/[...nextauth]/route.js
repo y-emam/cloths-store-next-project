@@ -11,10 +11,12 @@ const handler = NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+      checks: ["none"],
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      checks: ["none"],
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -61,6 +63,33 @@ const handler = NextAuth({
         return "/products";
       } else {
         return "/";
+      }
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      try {
+        if (user) {
+          await connectToDB();
+
+          let res = await User.findOne({ email: user.email });
+
+          if (res) {
+            return true;
+          } else {
+            let res = await User.create({
+              email: user.email,
+              username: user.name,
+            });
+
+            if (res) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
+        return true;
+      } catch (err) {
+        console.log(`Error occured: ${err}`);
       }
     },
   },

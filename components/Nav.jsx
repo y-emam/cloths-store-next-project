@@ -10,19 +10,6 @@ const Nav = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   // todo: make this function
-  //   const checkAuth = async () => {
-  //     const session = await getSession();
-  //     if (session) {
-  //       setIsAuthenticated(true);
-  //     } else {
-  //       setIsAuthenticated(false);
-  //     }
-  //   };
-  //   checkAuth();
-  // }, []);
-
   return (
     <nav className="navbar">
       <Link href="/">
