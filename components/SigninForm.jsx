@@ -77,10 +77,7 @@ const SigninForm = ({ page }) => {
                   if (data.error) {
                     console.log(data.error);
                   } else {
-                    console.log(email, password);
-                    signIn("credentials", { email, password }).then((res) =>
-                      router.push("/products")
-                    );
+                    await signIn("credentials", { email, password });
                   }
                   setIsLoading(false);
                 })

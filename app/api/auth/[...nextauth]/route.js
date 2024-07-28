@@ -42,7 +42,8 @@ const handler = NextAuth({
               return null;
             }
 
-            return { user, type: "business" };
+            const resPromise = { user, type: "business" };
+            return Promise.resolve(resPromise);
           } else {
             const admin = await Admin.findOne({ email });
 
@@ -56,7 +57,8 @@ const handler = NextAuth({
                 return null;
               }
 
-              return { user: admin, type: "admin" };
+              const resPromise = { user: admin, type: "admin" };
+              return Promise.resolve(resPromise);
             }
           }
         } catch (err) {
@@ -65,28 +67,24 @@ const handler = NextAuth({
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  jwt: {
-    secret: process.env.JWT_SECRET,
-  },
   pages: {
     signIn: "/signin",
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      if (url.includes("/signin")) {
-        return "/products";
-      } else {
-        return "/";
-      }
-      // return "/checkRedirect";
+      // if (url.includes("/signin")) {
+      //   return "/products";
+      // } else {
+      //   return "/";
+      // }
+      return "/checkRedirect";
     },
     async signIn({ user, account, profile, email, credentials }) {
+      console.log(user, account, profile, email, credentials);
       try {
         if (user) {
-          if (user.type === "admin") return true;
+          if (user.type === "admin" || account.provider !== "credentials")
+            return true;
 
           await connectToDB();
 
@@ -111,6 +109,16 @@ const handler = NextAuth({
       } catch (err) {
         console.log(`Error occured: ${err}`);
       }
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      session.user = token.user;
+      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

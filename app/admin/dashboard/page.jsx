@@ -13,7 +13,9 @@ const Dashboard = () => {
           <h1>Please open this website on PC</h1>
         </div>
       ) : (
-        <h1>Admin Dahsboard</h1>
+        <div className="w-full h-lvh text-center">
+          <h1 className="mt-auto text-5xl">Admin Dahsboard</h1>
+        </div>
       )}
     </section>
   );
