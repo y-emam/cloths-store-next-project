@@ -43,7 +43,7 @@ const handler = NextAuth({
             }
 
             const resPromise = { user, type: "business" };
-            return Promise.resolve(resPromise);
+            return { user, type: "business" };
           } else {
             const admin = await Admin.findOne({ email });
 
@@ -58,7 +58,7 @@ const handler = NextAuth({
               }
 
               const resPromise = { user: admin, type: "admin" };
-              return Promise.resolve(resPromise);
+              return { user: admin, type: "admin" };
             }
           }
         } catch (err) {
@@ -72,15 +72,9 @@ const handler = NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // if (url.includes("/signin")) {
-      //   return "/products";
-      // } else {
-      //   return "/";
-      // }
       return "/checkRedirect";
     },
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(user, account, profile, email, credentials);
       try {
         if (user) {
           if (user.type === "admin" || account.provider !== "credentials")

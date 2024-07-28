@@ -5,7 +5,6 @@ import React, { useState } from "react";
 
 const SigninForm = ({ page }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { data: session } = useSession();
   const router = useRouter();
 
   return (
@@ -90,12 +89,29 @@ const SigninForm = ({ page }) => {
                 const email = document.getElementById("email").value;
                 const password = document.getElementById("password").value;
 
-                const res = await signIn("credentials", {
-                  email,
-                  password,
-                });
-
+                await signIn("credentials", { email, password });
                 setIsLoading(false);
+
+                // signIn("credentials", {
+                //   email,
+                //   password,
+                //   redirect: false,
+                // })
+                //   .then(({ error, status, ok, url }) => {
+                //     console.log({ error, status, ok, url });
+                //     if (ok) {
+                //       alert("done");
+                //       router.push("/checkRedirect");
+                //     } else {
+                //       console.log(error);
+                //       alert("Check your email and password again");
+                //     }
+                //     setIsLoading(false);
+                //   })
+                //   .catch((err) => {
+                //     console.log(`Error: ${err}`);
+                //     setIsLoading(false);
+                //   });
               } catch (err) {
                 console.log(err);
 
