@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDB } from "@/utils/db";
 import User from "@/model/user";
 import bcrypt from "bcrypt";
+import Admin from "@/model/admin";
 
 const handler = NextAuth({
   providers: [
@@ -31,17 +32,33 @@ const handler = NextAuth({
 
           const user = await User.findOne({ email });
 
-          if (!user) {
-            return null;
+          if (user) {
+            const passwordsMatch = await bcrypt.compare(
+              password,
+              user.password
+            );
+
+            if (!passwordsMatch) {
+              return null;
+            }
+
+            return { user, type: "business" };
+          } else {
+            const admin = await Admin.findOne({ email });
+
+            if (admin) {
+              const passwordsMatch = await bcrypt.compare(
+                password,
+                admin.password
+              );
+
+              if (!passwordsMatch) {
+                return null;
+              }
+
+              return { user: admin, type: "admin" };
+            }
           }
-
-          const passwordsMatch = await bcrypt.compare(password, user.password);
-
-          if (!passwordsMatch) {
-            return null;
-          }
-
-          return user;
         } catch (err) {
           console.log(err);
         }
@@ -59,27 +76,26 @@ const handler = NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      if (url.includes("/signin")) {
-        return "/products";
-      } else {
-        return "/";
-      }
+      return "/checkRedirect";
     },
     async signIn({ user, account, profile, email, credentials }) {
       try {
         if (user) {
+          if (user.type === "admin") return true;
+
           await connectToDB();
 
-          let res = await User.findOne({ email: user.email });
+          let res = await User.findOne({ email: credentials.email });
 
           if (res) {
             return true;
           } else {
             let res = await User.create({
-              email: user.email,
-              username: user.name,
+              email: credentials.email,
+              username: credentials.name,
             });
 
+            JSON.parse({ message: "some testing" });
             if (res) {
               return true;
             } else {

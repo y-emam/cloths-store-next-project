@@ -1,10 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 const AdminSchema = new Schema({
-  Adminname: {
+  name: {
     type: String,
-    unique: [truq, "Admin must be unique!"],
-    required: [true, "Admin is required!"],
+    required: [true, "Name is required!"],
+  },
+  email: {
+    type: String,
+    unique: [true, "email must be unique!"],
+    required: [true, "email is required!"],
   },
   password: {
     type: String,

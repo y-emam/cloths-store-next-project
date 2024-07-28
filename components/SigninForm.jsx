@@ -1,9 +1,11 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const SigninForm = ({ page }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { data: session } = useSession();
   const router = useRouter();
 
   return (
@@ -56,6 +58,8 @@ const SigninForm = ({ page }) => {
           onClick={async (e) => {
             e.preventDefault();
 
+            setIsLoading(true);
+
             if (page === "signUp") {
               const email = document.getElementById("email").value;
               const password = document.getElementById("password").value;
@@ -78,19 +82,35 @@ const SigninForm = ({ page }) => {
                       router.push("/products")
                     );
                   }
+                  setIsLoading(false);
                 })
                 .catch((err) => {
                   console.log(err);
+                  setIsLoading(false);
                 });
             } else {
-              const email = document.getElementById("email").value;
-              const password = document.getElementById("password").value;
+              try {
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
 
-              signIn("credentials", { email, password });
+                const res = await signIn("credentials", {
+                  email,
+                  password,
+                });
+
+                alert(res);
+                alert(session);
+
+                setIsLoading(false);
+              } catch (err) {
+                console.log(err);
+
+                setIsLoading(false);
+              }
             }
           }}
         >
-          {page === "signUp" ? "Sign Up" : "Sign In"}
+          {isLoading ? "Loading..." : page === "signUp" ? "Sign Up" : "Sign In"}
         </button>
       </form>
       <div className="w-full flex items-center mt-4">

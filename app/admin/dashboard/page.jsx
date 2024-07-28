@@ -13,7 +13,7 @@ const Dashboard = () => {
           <h1>Please open this website on PC</h1>
         </div>
       ) : (
-        <h1>Dahsboard</h1>
+        <h1>Admin Dahsboard</h1>
       )}
     </section>
   );
