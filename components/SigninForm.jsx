@@ -98,9 +98,6 @@ const SigninForm = ({ page }) => {
                   password,
                 });
 
-                alert(res);
-                alert(session);
-
                 setIsLoading(false);
               } catch (err) {
                 console.log(err);

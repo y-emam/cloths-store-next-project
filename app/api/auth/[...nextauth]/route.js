@@ -100,7 +100,6 @@ const handler = NextAuth({
               username: credentials.name,
             });
 
-            JSON.parse({ message: "some testing" });
             if (res) {
               return true;
             } else {
