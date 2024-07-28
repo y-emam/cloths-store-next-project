@@ -76,7 +76,12 @@ const handler = NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return "/checkRedirect";
+      if (url.includes("/signin")) {
+        return "/products";
+      } else {
+        return "/";
+      }
+      // return "/checkRedirect";
     },
     async signIn({ user, account, profile, email, credentials }) {
       try {
