@@ -78,7 +78,9 @@ const SigninForm = ({ page }) => {
             setIsLoading(true);
 
             if (page === "signUp") {
-              const email = document.getElementById("email").value;
+              const email = document
+                .getElementById("email")
+                .value.toLowerCase();
               const password = document.getElementById("password").value;
               const username = document.getElementById("username").value;
 

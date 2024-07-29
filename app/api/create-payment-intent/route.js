@@ -12,7 +12,7 @@ export async function POST(req) {
 
     await connectToDB();
 
-    const user = await User.findOne({ email: userEmail });
+    const user = await User.findOne({ email: userEmail.toLowerCase() });
     const product = await Product.findOne({
       _id: ObjectId.createFromHexString(productId),
     });

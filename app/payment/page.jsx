@@ -41,7 +41,7 @@ const PaymentPage = ({ searchParams: data }) => {
           amount={amount}
           productId={productId}
           quantity={quantity}
-          userEmail={session.user.email}
+          userEmail={session.user.email.toLowerCase()}
         />
       </Elements>
     </main>

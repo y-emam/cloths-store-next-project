@@ -27,7 +27,9 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         try {
-          const { email, password } = credentials;
+          let { email, password } = credentials;
+          email = email.toLowerCase();
+
           await connectToDB();
 
           const user = await User.findOne({ email });
@@ -82,13 +84,15 @@ const handler = NextAuth({
 
           await connectToDB();
 
-          let res = await User.findOne({ email: credentials.email });
+          let res = await User.findOne({
+            email: credentials.email.toLowerCase(),
+          });
 
           if (res) {
             return true;
           } else {
             let res = await User.create({
-              email: credentials.email,
+              email: credentials.email.toLowerCase(),
               username: credentials.name,
             });
 
