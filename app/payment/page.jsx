@@ -19,6 +19,8 @@ const PaymentPage = ({ searchParams: data }) => {
   const { productId, quantity, amount } = data;
   const { data: session } = useSession();
 
+  console.log(session);
+
   return (
     <main className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-black">
       <div className="mb-10">
@@ -41,7 +43,11 @@ const PaymentPage = ({ searchParams: data }) => {
           amount={amount}
           productId={productId}
           quantity={quantity}
-          userEmail={session.user.email}
+          userEmail={
+            session.user.email
+              ? session.user.email.toLowerCase()
+              : session.user.user.email.toLowerCase()
+          }
         />
       </Elements>
     </main>

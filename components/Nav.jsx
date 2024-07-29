@@ -11,6 +11,8 @@ const Nav = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(session);
+
   const switchOpen = () => {
     setIsOpen((value) => !value);
   };

@@ -44,7 +44,6 @@ const handler = NextAuth({
               return null;
             }
 
-            const resPromise = { user, type: "business" };
             return { user, type: "business" };
           } else {
             const admin = await Admin.findOne({ email });
@@ -59,8 +58,7 @@ const handler = NextAuth({
                 return null;
               }
 
-              const resPromise = { user: admin, type: "admin" };
-              return { user: admin, type: "admin" };
+              return { admin, type: "admin" };
             }
           }
         } catch (err) {
