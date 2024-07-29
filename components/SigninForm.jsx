@@ -1,11 +1,22 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const SigninForm = ({ page }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [url, setUrl] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const updateUrl = () => {
+      const currentUrl = window.location.href;
+      console.log(currentUrl);
+      setUrl(currentUrl);
+    };
+
+    updateUrl();
+  }, []);
 
   return (
     <div className="bg-gray-900 text-white p-8 shadow-lg w-full max-w-md my-20">
@@ -51,6 +62,13 @@ const SigninForm = ({ page }) => {
             required
           />
         </div>
+        {url.includes(
+          `callbackUrl=%2FcheckRedirect&error=CredentialsSignin`
+        ) && (
+          <div className="w-full text-white text-center text-md my-5">
+            Wrong Credentials, check your email and password and try again.
+          </div>
+        )}
         <button
           type="submit"
           className="w-full py-2 mt-4 bg-black text-white font-semibold border-white border-2 hover:bg-gray-800 hover:border-gray-100"
@@ -91,27 +109,6 @@ const SigninForm = ({ page }) => {
 
                 await signIn("credentials", { email, password });
                 setIsLoading(false);
-
-                // signIn("credentials", {
-                //   email,
-                //   password,
-                //   redirect: false,
-                // })
-                //   .then(({ error, status, ok, url }) => {
-                //     console.log({ error, status, ok, url });
-                //     if (ok) {
-                //       alert("done");
-                //       router.push("/checkRedirect");
-                //     } else {
-                //       console.log(error);
-                //       alert("Check your email and password again");
-                //     }
-                //     setIsLoading(false);
-                //   })
-                //   .catch((err) => {
-                //     console.log(`Error: ${err}`);
-                //     setIsLoading(false);
-                //   });
               } catch (err) {
                 console.log(err);
 
