@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import Logo from "./Logo";
+import React, { useState } from "react";
+import Logo from "@/components/Logo";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -11,16 +11,15 @@ const Nav = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(session);
-
   const switchOpen = () => {
     setIsOpen((value) => !value);
-  };
 
+  };
+  
   return (
     <nav className="navbar relative flex items-center justify-between p-4 bg-black text-white">
       <Link href="/">
-        <Logo />
+        <Logo size={"text-5xl"}/>
       </Link>
       <div className="block lg:hidden z-20">
         <button onClick={switchOpen} className="text-white focus:outline-none">

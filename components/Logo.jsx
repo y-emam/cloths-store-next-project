@@ -6,15 +6,9 @@ const font = Covered_By_Your_Grace({
   weight: ["400"],
 });
 
-const Logo = () => {
+const Logo = ({size}) => {
   return (
-    <div>
-      <h3
-        className={`${font.className} text-5xl mt-3 ml-3 cursor-pointer text-white`}
-      >
-        YASUO
-      </h3>
-    </div>
+    <span className={`${font.className} ${size}`}>YASUO</span>
   );
 };
 
